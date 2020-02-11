@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecommage_Blog::manager" title="Blog Manager"
+             module="Ecommage_Blog" sortOrder="10"
+             resource="Ecommage_Blog::manager" />
+        <add id="Ecommage_Blog::add_row" title="Blog Manager"
+             module="Ecommage_Blog" sortOrder="20"
+             parent="Ecommage_Blog::manager" action="grid/grid"
+             resource="Webkul_Grid::add_row"/>
+    </menu>
+</config>

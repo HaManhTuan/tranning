@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ecommage_Post::manager" title="Post Manager"
+             module="Ecommage_Post" sortOrder="11"
+             resource="Ecommage_Post::manager" />
+        <add id="Ecommage_Post::add_row" title="Post Manager"
+             module="Ecommage_Post" sortOrder="21"
+             parent="Ecommage_Post::manager" action="post/post/index"
+             resource="Ecommage_Post::add_row"/>
+    </menu>
+</config>

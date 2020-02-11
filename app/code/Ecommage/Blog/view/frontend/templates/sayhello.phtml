@@ -1,0 +1,79 @@
+<div class="content-heading">
+    <h2 class="title">Blogs </h2>
+</div>
+<div class="content-blog">
+    <div class="content-blog-left">
+        <h5 class="title-frm">Add Blogs</h5>
+        <form action="<?php echo $block->getFormAction(); ?>" method="POST" id="">
+            <textarea name="content" id="content" class="form-control" rows="8"></textarea>
+            <input type="hidden" name="status" value="2">
+            <input type="hidden" name="author_id" value="<?php echo $block->getLoggedinCustomerId(); ?>">
+            <button type="submit" class="btn-add action-primary" style="width: 130px;padding: 15px;"><span style="font-size: 20px">Add </span></button>
+        </form>
+    </div>
+    <div class="content-blog-right">
+<!--        <h3>Chào - </h3>-->
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 0px">#</th>
+                <th scope="col" style="text-align: center">Blog</th>
+                <th scope="col" style="width: 50px;">Status</th>
+                <th scope="col" style="width: 45px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($block->getBlogCollection() as $key=>$blog){ ?>
+                <tr>
+                    <th><?php echo $blog['id'];?></th>
+                    <td><?php echo $blog['content'];?></td>
+                    <td>
+                        <?php if ($blog['status'] == 1){ ?>
+                            <span class="badge badge-primary">Publish</span>
+                        <?php }
+                        ?>
+                        <?php if ($blog['status'] == 2){ ?>
+                            <span class="badge badge-danger">Draft</span>
+                       <?php  }
+                        ?>
+                        <?php if ($blog['status'] == 3){ ?>
+                            <span class="badge badge-success">Non-Pubish</span>
+                        <?php }?>
+
+                    </td>
+                    <td><a class="edit action-primary" href="<?php echo $block->getFormEditUrl()."blogId/".$blog['id'];?>"
+                           data-id="<?php echo $blog['id'];?>" >
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            <span>Edit</span>
+                        </a></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    require([
+        "jquery",
+        "mage/translate",
+        "mage/adminhtml/events",
+        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+    ], function(jQuery){
+        wysiwygcompany_description = new wysiwygSetup("content", {
+            "width":"99%",  // defined width of editor
+            "height":"200px", // height of editor
+            "plugins":[{"name":"image"}], // for image
+            "tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+            }
+        });
+        wysiwygcompany_description.setup("exact");
+    });
+</script>
+
+
+
+
+
+
+

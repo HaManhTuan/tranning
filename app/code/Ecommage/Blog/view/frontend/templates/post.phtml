@@ -1,0 +1,36 @@
+<div class="content-heading">
+    <h2 class="title">List Blog Publish</h2>
+</div>
+<div class="content-blog">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col" style="width: 0px">#</th>
+            <th scope="col" style="text-align: center">Blog</th>
+            <th scope="col" style="width: 50px;">Status</th>
+            <th scope="col" style="width: 45px;">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        $stt = 0;
+        foreach ($block->getBlogCollection() as $key=>$blog){ $stt++;?>
+            <tr>
+                <th><?php echo $stt;?></th>
+                <td><?php echo $blog['content'];?></td>
+                <td>
+                    <?php if ($blog['status'] == 1){ ?>
+                        <span class="badge badge-primary">Publish</span>
+                    <?php }
+                    ?>
+                </td>
+                <td><a class="edit action-primary"
+                       href="<?php echo $block->getViewtUrl()."blogId/".$blog['id'];?>"
+                       data-id="" >
+                        <span>View</span>
+                    </a></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,59 @@
+<?php
+$blog = $block->getDataBlogId();
+$customerName = $block->getCustomerName();
+foreach ( $customerName as $customerName) {
+    $firstName = $customerName['firstname'];
+    $lastName = $customerName['lastname'];
+}
+?>
+<div class="content-heading">
+    <h2 class="title">List Blog</h2>
+<!--    Chào <span> --><?php //echo $firstName?><!-- --><?php //echo $lastName?><!--</span>-->
+</div>
+<div class="content-blog">
+    <div class="edit-frm">
+        <div class="list-btn">
+            <a href="<?php echo $block->getFormAddUrl()?>" class="edit action-primary"
+               style="margin-top: -10px;margin-bottom: 10px;width: 100px; text-align: center">
+                <span>Add Post</span></a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 0px">#</th>
+                <th scope="col" style="text-align: center">Blog</th>
+                <th scope="col" style="width: 50px;">Status</th>
+                <th scope="col" style="width: 45px;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($block->getBlogCollection() as $key=>$blog){ ?>
+                <tr>
+                    <th><?php echo $blog['id'];?></th>
+                    <td><?php echo $blog['content'];?></td>
+                    <td>
+                        <?php if ($blog['status'] == 1){ ?>
+                            <span class="badge badge-primary">Publish</span>
+                        <?php }
+                        ?>
+                        <?php if ($blog['status'] == 2){ ?>
+                            <span class="badge badge-danger">Draft</span>
+                        <?php  }
+                        ?>
+                        <?php if ($blog['status'] == 3){ ?>
+                            <span class="badge badge-success">Non-Pubish</span>
+                        <?php }?>
+
+                    </td>
+                    <td><a class="edit action-primary" href="<?php echo $block->getFormEditUrl()."id/".$blog['id'];?>"
+                           data-id="<?php echo $blog['id'];?>" >
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            <span>Edit</span>
+                        </a></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>

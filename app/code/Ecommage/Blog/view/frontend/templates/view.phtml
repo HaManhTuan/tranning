@@ -1,0 +1,38 @@
+<?php
+    $blog = $block->getDataBlogId();
+    $customerName = $block->getCustomerName();
+    foreach ( $customerName as $customerName) {
+        $firstName = $customerName['firstname'];
+        $lastName = $customerName['lastname'];
+    }
+?>
+<div class="content-heading">
+    <h2 class="title"> Blog Details </h2>
+</div>
+
+<div class="content-blog">
+    <div class="edit-frm">
+        <div class="list-btn">
+            <a href="" class="edit action-primary"
+               style="margin-top: -10px;margin-bottom: 10px;width: 100px; text-align: center">
+                <span>Back</span></a>
+        </div>
+        <label class="author-name">Author:</label><span><?php echo $firstName?> <?php echo $lastName;?></span>
+        <div class="fl-right"><label class="status-name">Status:</label>
+            <?php if($blog['status'] == 1){?>
+                <span class="badge badge-primary">
+                 Publish
+                </span>
+            <?php }?>
+        </div>
+        <div class="content-blog-view">
+            <label class="content-name">Content</label>
+            <textarea name="content" rows="10" readonly><?php
+                echo $blog['content'];
+                ?></textarea>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,91 @@
+<?php $blog = $block->getDataBlogId(); ?>
+<div class="content-heading">
+    <h2 class="title">Edit Blogs </h2>
+</div>
+<div class="content-blog">
+    <div class="edit-frm">
+        <div class="notify1">
+        </div>
+        <form action="">
+            <div class="form-group">
+                <label>Content</label>
+                <textarea name="content" class="form-control" id="content" rows="8"><?php echo $blog['content'];?></textarea>
+            </div>
+            <div class="form-group">
+                <label>Status</label>
+                <select name="status" id="status">
+                    <?php if ($blog['status'] == 1){?>
+                        <option value="1" selected>publish</option>-->
+                        <option value="2">draft</option>
+                        <option value="3">non-publish</option>
+                    <?php }?>
+                    <?php if ($blog['status'] == 2){?>
+                        <!--<option value="1" >publish</option>-->
+                        <option value="2" selected>draft</option>
+                        <option value="3">non-publish</option>
+                    <?php }?>
+                    <?php if ($blog['status'] == 3){?>
+                        <!--            <option value="1" >publish</option>-->
+                        <option value="2" >draft</option>
+                        <option value="3" selected>non-publish</option>
+                    <?php }?>
+                </select>
+                <input type="hidden" name="blog_id" id="blog_id" value="<?php echo $blog['id'];?>">
+                <input type="hidden" name="author_id" id="author_id" value="<?php echo $blog['author_id'];?>">
+            </div>
+            <button class="btn-edit edit action-primary" type="button" id="editblog" style="width: 130px;padding: 15px;"><span style="font-size: 20px">Edit</span></button>
+        </form>
+    </div>
+</div>
+
+<script>
+    require([
+        "jquery",
+        "mage/translate",
+        "mage/adminhtml/events",
+        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+        ], function(jQuery){
+            wysiwygcompany_description = new wysiwygSetup("content", {
+            "width":"99%",  // defined width of editor
+            "height":"200px", // height of editor
+            "plugins":[{"name":"image"}], // for image
+            "tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+        }
+    });
+            wysiwygcompany_description.setup("exact");
+        });
+    </script>
+
+    <script>
+        require(["jquery"], function ($) {
+            $('#editblog' ).on('click', function () {
+            //var frm = $('#editfrm').serialize();
+            var content= $("#content").val();
+            var status= $("#status").val();
+            var author_id= $("#author_id").val();
+            var blog_id= $("#blog_id").val();
+            $.ajax({
+                url: "<?php echo $block->getFormActionEdit();?>",
+                type: 'POST',
+                data: {content: content,  status: status, author_id: author_id, blog_id: blog_id},
+                success: function (data) {
+                    console.log(data);
+                    $("html,body").animate({ scrollTop: 0 }, "fast");
+                    if (data.status == "success") {
+                        $('.notify1').html('<div class="alert alert-success" role="alert">\n'
+                            + data.message +
+                            '</div>');
+                    }
+                    else{
+                      $('.notify1').html('<div class="alert alert-error" role="alert">\n'
+                        + data.message +
+                        '</div>');
+                  }
+              },
+              error: function(err){
+                console.log(err);
+            }
+        });
+        });
+        })
+    </script>

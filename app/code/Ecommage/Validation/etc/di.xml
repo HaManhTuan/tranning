@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Ecommage\Validation\Api\Data\GridInterface" type="Ecommage\Validation\Model\Validation" />
+    <virtualType name="Ecommage\Validation\Model\ResourceModel\Validation\Validation\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">bad_words</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Ecommage\Validation\Model\ResourceModel\Validation
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="validation_validation_list_data_source" xsi:type="string">
+                    Ecommage\Validation\Model\ResourceModel\Validation\Validation\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ecommage\Validation\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Ecommage\Validation\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Ecommage\Validation\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!--    Override Controller!-->
+    <type name="Ecommage\Post\Controller\Index\Save">
+        <plugin name="EcommagePostSave" type="Ecommage\Validation\Plugin\Index\Save" disabled="false" sortOrder="1" />
+    </type>
+    <type name="Ecommage\Post\Controller\Index\EditAction">
+        <plugin name="EcommagePostEdit" type="Ecommage\Validation\Plugin\Index\EditAction" disabled="false" sortOrder="1" />
+    </type>
+</config>

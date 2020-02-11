@@ -1,0 +1,60 @@
+<div class="content-heading">
+    <h2 class="title">Add Blogsssss </h2>
+</div>
+<div class="content-blog">
+    <div class="edit-frm">
+        <div class="notify">
+        </div>
+        <form action="<?php echo $block->getFormAction();?>" method="POST" id="addfrm">
+            <textarea name="content" id="content" class="form-control" rows="8"></textarea>
+            <input type="hidden" name="status" id="status" value="2">
+            <input type="hidden" name="author_id" id="author_id" value="<?php echo $block->getLoggedinCustomerId(); ?>">
+            <button class="btn-add action-primary" type="submit" id="addblog" style="width: 130px;padding: 15px;"><span style="font-size: 20px">Add </span></button>
+        </form>
+    </div>
+</div>
+<script>
+    require([
+        "jquery",
+        "mage/translate",
+        "mage/adminhtml/events",
+        "mage/adminhtml/wysiwyg/tiny_mce/setup"
+    ], function(jQuery){
+        wysiwygcompany_description = new wysiwygSetup("content", {
+            "width":"99%",  // defined width of editor
+            "height":"200px", // height of editor
+            "plugins":[{"name":"image"}], // for image
+            "tinymce4":{"toolbar":"formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link table charmap","plugins":"advlist autolink lists link charmap media noneditable table contextmenu paste code help table",
+            }
+        });
+        wysiwygcompany_description.setup("exact");
+    });
+</script>
+<!--<script>-->
+<!--    require(['jquery', 'jquery/ui'], function($){-->
+<!--        $("#addblog" ).click(function() {-->
+<!--            var content= $("#content").val();-->
+<!--            var status= $("#status").val();-->
+<!--            var author_id= $("#author_id").val();-->
+<!--            $.ajax({-->
+<!--                type: "POST",-->
+<!--                url: "",
+//                data: { content: content,  status: status, author_id: author_id},
+//                success: function (data) {
+//                    console.log(data);
+//                    $("html,body").animate({ scrollTop: 0 }, "fast");
+//                    $('.notify').html('<div class="alert alert-success" role="alert">\n'
+//                        + data.message +
+//                        '</div>');
+//                    //$('#addfrm')[0].reset();
+//                    setTimeout(function () {
+//                        window.location.href="http://tranning.local/post/index/post";
+//                    }, 3000)
+//                }
+//
+//            })
+//        });
+//    })
+//</script>
+
+

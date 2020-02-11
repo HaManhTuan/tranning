@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Ecommage\Post\Api\Data\GridInterface" type="Ecommage\Post\Model\Post" />
+    <virtualType name="Ecommage\Post\Model\ResourceModel\Post\Post\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">posts</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Ecommage\Post\Model\ResourceModel\Post
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="grid_record_grid_list_data_source" xsi:type="string">
+                    Ecommage\Post\Model\ResourceModel\Post\Post\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Ecommage\Post\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Ecommage\Post\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">customLogHandler</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Ecommage\Post\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
